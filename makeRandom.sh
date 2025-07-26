@@ -25,7 +25,8 @@ do
 		   echo -l "letters" specify letters of spawns, i.e. abdef generates spawns of a b d e f
 		   echo
 		   echo to generate 20 random spawns in file name "trainrandom.cfg" for t side for spawns a-f type:
-		   echo ./makeRandom -n trainrandom.cfg -t -a 20 -r f ;; 
+		   echo ./makeRandom -n trainrandom.cfg -t -a 20 -r f  
+		   exit 0;;
 	esac
 done
 
@@ -48,8 +49,10 @@ echo alias randomSpawn \"randomSpawn0\" > $name
 
 for ((i=0;i!=$amount;i++))
 do
-	echo alias randomSpawn${i} \"alias randomSpawn \\"randomSpawn$((i+1)) loc${t}${letters[RANDOM % ${#letters[@]}]}\\"\" >> $name
+	randomLetter=letters[RANDOM % ${#letters[@]}]
+	echo alias randomSpawn${i} \"alias randomSpawn \\"randomSpawn$((i+1))\\"; alias lastRandomSpawn \\"loc${t}${randomLetter}\\";  loc${t}${randomLetter}\" >> $name
 done
-echo alias randomSpawn${amount} \"alias randomSpawn \\"randomSpawn$((amount+1)) loc${t}${letters[RANDOM % ${#letters[@]}]}\\"\" >> $name
+randomLetter=letters[RANDOM % ${#letters[@]}]
+echo alias randomSpawn${amount} \"alias randomSpawn \\"randomSpawn0\\"; alias lastRandomSpawn \\"loc${t}${randomLetter}\\"; loc${t}${randomLetter}\" >> $name
 		
 

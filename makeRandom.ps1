@@ -60,11 +60,11 @@ if (Test-Path $n) {
 for ($i = 0; $i -lt $a; $i++) {
     $next = $i + 1
     $randLetter = Get-Random -InputObject $letters
-    $line = "alias randomSpawn$i `"alias randomSpawn `"randomSpawn$next loc$side$randLetter`"`""
+    $line = "alias randomSpawn$i `"alias randomSpawn `"randomSpawn$next `"; alias lastRandomSpawn `"loc$side$randLetter`"; loc$side$randLetter`""
     $line | Out-File -Append -Encoding ASCII -FilePath $n
 }
 
 # Final alias
 $lastLetter = Get-Random -InputObject $letters
-$finalLine = "alias randomSpawn$a `"alias randomSpawn `"randomSpawn$($a+1) loc$side$lastLetter`"`""
+$finalLine = "alias randomSpawn$a `"alias randomSpawn `"randomSpawn0 `"; alias lastRandomSpawn `"loc$side$randLetter`"; loc$side$lastLetter`""
 $finalLine | Out-File -Append -Encoding ASCII -FilePath $n
